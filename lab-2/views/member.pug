@@ -1,0 +1,40 @@
+extends layout
+
+block content
+    .member-container
+        .member-card
+            if member.photo
+                .member-photo
+                    img(src=member.photo, alt=member.name)
+
+            h1.member-name= member.name
+            p.member-role= member.role
+
+            if member.bio
+                .member-section
+                    h2 Про учасника
+                    p.member-bio= member.bio
+
+            if member.skills && member.skills.length
+                .member-section
+                    h2 Навички
+                    ul.skills-list
+                        each skill in member.skills
+                            li.skill-item= skill
+
+            if member.contacts
+                .member-section
+                    h2 Контакти
+                    .contact-info
+                        if member.contacts.email
+                            p
+                                span.contact-label Email:
+                                a(href=`mailto:${member.contacts.email}`)= member.contacts.email
+
+                        if member.contacts.telegram
+                            p
+                                span.contact-label Telegram:
+                                a(href=`https://t.me/${member.contacts.telegram}`, target="_blank")= member.contacts.telegram
+
+            .back-button
+                a(href="/") Повернутись до головної
